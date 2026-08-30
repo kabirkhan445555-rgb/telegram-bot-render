@@ -16,24 +16,21 @@ def start(m):
     bot.reply_to(m, "Bot Live hai da ✅")
 
 @bot.message_handler(func=lambda m: True)
-def echo(m):
+def all_messages(m):
     try:
         bot.send_message(telegram_group_id, f"New msg from {m.from_user.first_name}: {m.text}")
-    except:
-        pass
-    bot.reply_to(m, f"You said: {m.text}")
+    except Exception as e:
+        print(f"Channel send fail (bot admin nahi hai): {e}")
+    bot.reply_to(m, "Message mil gaya 👍")
 
 app = Flask(__name__)
 @app.route('/')
 def home():
-    return "Bot Running"
-
-def run_bot():
-    bot.infinity_polling()
+    return "Bot is running"
 
 def run_flask():
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
 
-if __name__ == "__main__":
-    threading.Thread(target=run_bot).start()
-    run_flask()
+threading.Thread(target=run_flask).start()
+print("Bot polling started...")
+bot.infinity_polling()
