@@ -19,7 +19,7 @@ load_dotenv()
 # Get the Telegram bot token from environment variable
 telegram_auth_token = os.getenv("TELEGRAM_AUTH_TOKEN")
 # Set the group ID or username (should be numeric chat ID for groups)
-telegram_group_id = "Date_and_time_notifier"
+telegtelegram_group_id = "@Date_and_time_notifier"
 
 
 # Create the message to send
