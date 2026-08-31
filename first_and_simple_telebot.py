@@ -9,7 +9,7 @@ if not TOKEN:
     exit(1)
 
 bot = telebot.TeleBot(TOKEN)
-telegram_group_id = "@Kollywood_king_request_bot"
+telegram_group_id = "@Kollywood_king_request"
 
 @bot.message_handler(commands=['start'])
 def start(m):
@@ -18,9 +18,9 @@ def start(m):
 @bot.message_handler(func=lambda m: True)
 def all_messages(m):
     try:
-        bot.send_message(telegram_group_id, f"New msg from {m.from_user.first_name}: {m.text}")
+        bot.send_message(telegram_group_id, m.text)
     except Exception as e:
-        print(f"Channel send fail (bot admin nahi hai): {e}")
+        print(f"Channel send fail (bot admin nahi hoga): {e}")
     bot.reply_to(m, "Message mil gaya 👍")
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def home():
     return "Bot is running"
 
 def run_flask():
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
 
 threading.Thread(target=run_flask).start()
 print("Bot polling started...")
